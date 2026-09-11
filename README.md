@@ -1,6 +1,6 @@
 # Site Helder
 
-Landing page institucional da Painel Elétrico, atualmente em desenvolvimento. A implementação segue o layout fornecido pela designer e reúne uma página inicial e uma página de categorias.
+Site institucional da Painel Elétrico, atualmente em desenvolvimento. A implementação segue o layout fornecido pela designer e reúne páginas para início, categorias, sobre a empresa e contato.
 
 ## Status
 
@@ -28,14 +28,20 @@ O layout foi elaborado no Figma:
 .
 ├── categorias/
 │   └── index.html
+├── contato/
+│   └── index.html
 ├── public/
 │   └── favicon.svg
 ├── qa/
 │   └── *.png
+├── sobre/
+│   └── index.html
 ├── src/
 │   ├── data/
 │   │   └── site.js
+│   ├── about.js
 │   ├── categories.js
+│   ├── contact.js
 │   ├── main.js
 │   ├── style.css
 │   └── ui.js
@@ -45,7 +51,7 @@ O layout foi elaborado no Figma:
 └── vite.config.js
 ```
 
-Os textos, categorias, produtos de demonstração, diferenciais, marcas e etapas de atendimento estão centralizados em `src/data/site.js`. A pasta `qa/` contém capturas usadas na conferência visual durante o desenvolvimento.
+Os textos compartilhados, categorias, produtos temporários, diferenciais, marcas, marcos e etapas de atendimento estão centralizados em `src/data/site.js`. A pasta `qa/` contém capturas usadas na conferência visual durante o desenvolvimento.
 
 ## Executando localmente
 
@@ -61,7 +67,7 @@ npm install
 npm run dev
 ```
 
-Abra o endereço informado pelo Vite, normalmente `http://localhost:5173/`. A página de categorias fica em `http://localhost:5173/categorias/`.
+Abra o endereço informado pelo Vite, normalmente `http://localhost:5173/`. As rotas estáticas disponíveis são `/`, `/categorias/`, `/sobre/` e `/contato/`.
 
 ## Build
 
@@ -130,4 +136,9 @@ Antes da publicação definitiva, a designer ainda deverá fornecer, quando apli
 - imagens finais dos produtos em WebP ou AVIF;
 - favicon oficial;
 - arquivo da fonte tipográfica original, caso a licença permita hospedagem local;
-- imagem social/Open Graph oficial, se prevista pela identidade da marca.
+- imagem social/Open Graph oficial, se prevista pela identidade da marca;
+- mídias institucionais dos blocos pretos da Home e da página Sobre;
+- dados oficiais de WhatsApp e e-mail;
+- URL oficial do Google Maps;
+- números oficiais para a faixa de indicadores da página Sobre;
+- endpoint oficial para o formulário de contato.

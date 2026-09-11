@@ -1,6 +1,6 @@
 import './style.css'
 import { categories, featuredProducts, benefits, partners, steps } from './data/site.js'
-import { categoryCard, footer, header, icon, infoBar, initNavigation } from './ui.js'
+import { categoryCard, footer, header, icon, infoBar, initNavigation, mediaPlaceholder } from './ui.js'
 
 const productCards = featuredProducts.map((product) => `
   <article class="product-card">
@@ -12,9 +12,9 @@ const productCards = featuredProducts.map((product) => `
 
 const benefitCards = benefits.map((item) => `
   <article class="benefit-card">
+    <span class="benefit-card__icon">${icon(item.icon)}</span>
     <h3>${item.title}</h3>
     <p>${item.text}</p>
-    <span>${icon(item.icon)}</span>
   </article>
 `).join('')
 
@@ -33,23 +33,26 @@ const processSteps = steps.map((step, index) => `
 
 document.querySelector('#app').innerHTML = `
   ${infoBar()}
-  ${header('./')}
+  ${header({ base: './', active: 'inicio' })}
   <main>
     <section class="hero" id="inicio">
-      <div class="container hero__content">
-        <p class="eyebrow">Componentes eletrônicos</p>
-        <h1>Soluções em<br>componentes eletrônicos<br>para a indústria</h1>
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <p class="eyebrow">Componentes eletrônicos</p>
+          <h1>Soluções em<br>componentes<br>eletrônicos<br>para a indústria</h1>
+        </div>
+        ${mediaPlaceholder('Área reservada para imagem ou vídeo de componentes eletrônicos', 'hero__media')}
       </div>
     </section>
 
     <section class="category-strip" aria-labelledby="categorias-home">
-      <div class="container category-strip__inner">
+      <div class="container">
         <h2 class="sr-only" id="categorias-home">Categorias</h2>
         <div class="category-grid category-grid--home">
-          ${categories.map((category) => categoryCard(category)).join('')}
+          ${categories.map((category) => categoryCard(category, './categorias/')).join('')}
           <a class="category-card category-card--all" href="./categorias/">
             <span class="category-card__dots" aria-hidden="true"><i></i><i></i><i></i></span>
-            <span>Ver todas as categorias</span>
+            <span>Ver todas categorias</span>
           </a>
         </div>
       </div>
@@ -65,20 +68,15 @@ document.querySelector('#app').innerHTML = `
       </div>
     </section>
 
-    <section class="about section-orange" id="sobre">
+    <section class="about section-orange" aria-labelledby="about-home-title">
       <div class="container about__grid">
-        <div class="about__space" aria-hidden="true"><span>15+</span><small>anos de experiência</small></div>
+        ${mediaPlaceholder('Área reservada para imagem sobre a história da empresa', 'about__media')}
         <div class="about__content">
           <p class="eyebrow">Sobre a empresa</p>
-          <h2>Referência em distribuição de componentes eletrônicos</h2>
-          <p>Há mais de 15 anos no mercado, oferecemos soluções completas em componentes eletrônicos com compromisso, qualidade e agilidade no atendimento.</p>
-          <ul>
-            <li>Mais de 15 anos de experiência</li>
-            <li>Distribuidor autorizado das principais marcas</li>
-            <li>Atendimento em todo território nacional</li>
-            <li>Equipe técnica especializada</li>
-          </ul>
-          <a class="button" href="#como-funciona">Conheça nossa história</a>
+          <h2 id="about-home-title">Experiência que transforma necessidades em soluções</h2>
+          <p>A Painel Elétrico trabalha para conectar a indústria aos componentes e às soluções adequadas a cada projeto.</p>
+          <p>Com atendimento próximo e conhecimento técnico, nossa equipe entende cada necessidade para orientar escolhas com clareza e segurança.</p>
+          <a class="button" href="./sobre/">Conheça nossa história ${icon('ArrowRight')}</a>
         </div>
       </div>
     </section>
@@ -104,11 +102,14 @@ document.querySelector('#app').innerHTML = `
       </div>
     </section>
 
-    <section class="contact" id="contato">
-      <div class="container contact__panel">
-        <span class="contact__icon">${icon('MessageCircle')}</span>
-        <div><h2>Precisa de componentes eletrônicos?</h2><p>Fale com nossa equipe.</p></div>
-        <a class="button button--light" href="#inicio">Voltar ao início ${icon('ArrowRight')}</a>
+    <section class="contact-cta" aria-labelledby="contact-cta-title">
+      <div class="container contact-cta__panel">
+        <span class="contact-cta__icon">${icon('MessageCircle')}</span>
+        <div>
+          <h2 id="contact-cta-title">Precisa de componentes eletrônicos?</h2>
+          <p>Conte sua necessidade para nossa equipe.</p>
+        </div>
+        <a class="button button--light" href="./contato/">Fale com a equipe ${icon('ArrowRight')}</a>
       </div>
     </section>
   </main>
@@ -116,14 +117,3 @@ document.querySelector('#app').innerHTML = `
 `
 
 initNavigation()
-
-const sections = [...document.querySelectorAll('main section[id]')]
-const navLinks = [...document.querySelectorAll('.main-nav a')]
-if ('IntersectionObserver' in window) {
-  const observer = new IntersectionObserver((entries) => {
-    const visible = entries.find((entry) => entry.isIntersecting)
-    if (!visible) return
-    navLinks.forEach((link) => link.classList.toggle('active', link.hash === `#${visible.target.id}`))
-  }, { rootMargin: '-30% 0px -60%', threshold: 0 })
-  sections.forEach((section) => observer.observe(section))
-}

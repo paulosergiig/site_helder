@@ -1,11 +1,12 @@
 import './style.css'
 import { categories } from './data/site.js'
-import { categoryCard, footer, infoBar } from './ui.js'
+import { categoryCard, footer, header, infoBar, initNavigation } from './ui.js'
 
 const repeatedCategories = Array.from({ length: 3 }, () => categories).flat()
 
 document.querySelector('#app').innerHTML = `
   ${infoBar()}
+  ${header({ base: '../' })}
   <main class="categories-main">
     <section class="categories-hero" aria-labelledby="categories-title">
       <div class="container">
@@ -19,3 +20,5 @@ document.querySelector('#app').innerHTML = `
   </main>
   ${footer('../')}
 `
+
+initNavigation()
